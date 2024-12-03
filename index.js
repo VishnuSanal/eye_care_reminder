@@ -4,11 +4,11 @@ const path = require('path');
 let tray = null;
 let mainWindow = null;
 
-// const DELAY = 20 * 60 * 1000;
-// const DURATION = 20 * 1000;
+const DELAY = 20 * 60 * 1000;
+const DURATION = 20 * 1000;
 
-const DELAY = 30 * 1000;
-const DURATION = 2 * 1000;
+// const DELAY = 30 * 1000;
+// const DURATION = 2 * 1000;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
