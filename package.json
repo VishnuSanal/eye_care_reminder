@@ -1,0 +1,21 @@
+{
+  "name": "eye-health-reminder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "electron .",
+    "package": "electron-packager . eye-care-reminder --platform=darwin,win32,linux --arch=x64 --out=dist --icon=icon.png --overwrite"
+  },
+  "keywords": [],
+  "author": "Vishnu Sanal T",
+  "license": "MIT",
+  "description": "A simple application to remind you to take 20/20/20 breaks for eye health.",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1"
+  },
+  "devDependencies": {
+    "@electron/packager": "^18.3.6",
+    "electron": "^33.2.1"
+  }
+}

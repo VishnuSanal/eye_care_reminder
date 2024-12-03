@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Reminder</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #F50057, #E91E63); /* Material Pink Gradient */
+            color: #fff;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .popup {
+            text-align: center;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            animation: heartbeat 1.5s infinite;
+        }
+        .popup h1 {
+            font-size: 24px;
+            color: #E91E63; /* Material Pink Color */
+            margin-bottom: 20px;
+        }
+        .popup p {
+            font-size: 16px;
+            margin: 10px 0 20px;
+            line-height: 1.5;
+            color: #333;
+        }
+        .progress-container {
+            width: 100%;
+            height: 30px;
+            background-color: #F8BBD0; /* Light Pink Background for Progress */
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #D81B60; /* Material Medium Pink */
+            border-radius: 10px;
+            animation: progress 20s linear forwards, heartbeat 1.5s infinite;
+        }
+        .progress-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            color: #ffffff;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #E91E63; /* Material Pink */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #C2185B; /* Darker Material Pink on hover */
+        }
+
+        @keyframes progress {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="popup">
+        <h1>Eye Health Reminder</h1>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-overlay">20s</div>
+            </div>
+        </div>
+        <p>Focus on something 20 meters away while the timer completes.</p>
+    </div>
+
+    <script>
+        const overlay = document.querySelector('.progress-overlay');
+        const progressBar = document.querySelector('.progress-bar');
+        let seconds = 20;
+
+        const countdown = setInterval(() => {
+            seconds -= 1;
+            overlay.textContent = `${seconds}s`;
+
+            // Update progress bar width in percentage
+            const progressPercentage = (20 - seconds) * 5; // 20 seconds = 100%
+            progressBar.style.width = `${progressPercentage}%`;
+
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                overlay.textContent = "Done!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
