@@ -37,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: electron-build-${{ matrix.os }}
-          path: dist/
+          path: out/make/
