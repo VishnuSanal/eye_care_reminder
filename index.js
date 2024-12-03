@@ -4,6 +4,12 @@ const path = require('path');
 let tray = null;
 let mainWindow = null;
 
+// const DELAY = 20 * 60 * 1000;
+// const DURATION = 20 * 1000;
+
+const DELAY = 30 * 1000;
+const DURATION = 2 * 1000;
+
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 800,
@@ -22,9 +28,13 @@ function createWindow() {
 
     mainWindow.loadFile('index.html');
 
-    mainWindow.on('close', (event) => {
-        event.preventDefault();
-    });
+    // mainWindow.on('close', (event) => {
+    //     event.preventDefault();
+    // });
+
+    setTimeout(() => {
+        mainWindow.close();
+    }, DURATION);
 }
 
 function createTray() {
@@ -59,7 +69,7 @@ app.whenReady().then(() => {
     triggerPopup();
     setInterval(() => {
         triggerPopup();
-    }, 20 * 60 * 1000);
+    }, DELAY);
 });
 
 app.on('window-all-closed', () => {
