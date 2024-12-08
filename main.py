@@ -1,15 +1,18 @@
+import logging
 import sys
+from datetime import datetime
 
-from PyQt6.QtCore import QTimer, Qt, QPropertyAnimation, QEasingCurve
+from PyQt6.QtCore import QTimer, Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QApplication, QLabel, QVBoxLayout, QProgressBar, QDialog
+
+logger = logging.getLogger(__name__)
 
 
 class PopupWindow(QDialog):
     def __init__(self):
         super().__init__()
-        self.animation = None
-        self.setWindowTitle("20/20/20 Eye Health Reminder")
+        self.setWindowTitle("20/20/20 Eye Care Reminder")
         self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint | Qt.WindowType.FramelessWindowHint)
         self.setFixedSize(500, 250)
 
@@ -19,7 +22,7 @@ class PopupWindow(QDialog):
         self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.title.setFont(QFont("Arial", 24, QFont.Weight.Bold))
         self.title.setStyleSheet("color: #e91e63;")
-        
+
         self.subtitle = QLabel("Focus on something 20 meters away while the timer completes.")
         self.subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.subtitle.setFont(QFont("Arial", 12))
@@ -68,6 +71,8 @@ class PopupWindow(QDialog):
 
 
 def show_popup():
+    logger.info(f"trigger: {datetime.now()}")
+
     popup = PopupWindow()
     popup.exec()
 
@@ -81,6 +86,10 @@ class ReminderApp:
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+
+    logger.info(f"init: {datetime.now()}")
+
     app = QApplication(sys.argv)
     reminder = ReminderApp()
     sys.exit(app.exec())
