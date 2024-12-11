@@ -1,5 +1,6 @@
 import logging
 import sys
+import time
 from datetime import datetime
 
 from PyQt6.QtCore import QTimer, Qt
@@ -90,6 +91,13 @@ if __name__ == "__main__":
 
     logger.info(f"init: {datetime.now()}")
 
-    app = QApplication(sys.argv)
-    reminder = ReminderApp()
-    sys.exit(app.exec())
+    while True:
+        try:
+            app = QApplication(sys.argv)
+
+            reminder = ReminderApp()
+
+            sys.exit(app.exec())
+        except:
+            logger.error(f"error:")
+            time.sleep(2 * 60 * 1000)
