@@ -9,6 +9,11 @@ from PyQt6.QtWidgets import QApplication, QLabel, QVBoxLayout, QProgressBar, QDi
 
 logger = logging.getLogger(__name__)
 
+DELAY_SECS=20 * 60
+DURATION_SECS=20
+# DELAY_SECS = 2 * 60
+# DURATION_SECS = 10
+
 
 class PopupWindow(QDialog):
     def __init__(self):
@@ -30,9 +35,9 @@ class PopupWindow(QDialog):
         self.subtitle.setStyleSheet("color: #f06292;")
 
         self.progress_bar = QProgressBar(self)
-        self.progress_bar.setMaximum(20)
+        self.progress_bar.setMaximum(DURATION_SECS)
         self.progress_bar.setValue(0)
-        self.progress_bar.setFormat(f"20 seconds remaining")
+        self.progress_bar.setFormat(f"{DURATION_SECS} seconds remaining")
         self.progress_bar.setStyleSheet(
             """
             QProgressBar {
@@ -64,9 +69,9 @@ class PopupWindow(QDialog):
     def update_progress(self):
         self.progress_value += 1
         self.progress_bar.setValue(self.progress_value)
-        remaining_seconds = 20 - self.progress_value
+        remaining_seconds = DURATION_SECS - self.progress_value
         self.progress_bar.setFormat(f"{remaining_seconds} seconds remaining")
-        if self.progress_value >= 20:
+        if self.progress_value >= DURATION_SECS:
             self.timer.stop()
             self.close()
 
@@ -78,12 +83,10 @@ def show_popup():
     popup.exec()
 
 
-class ReminderApp:
-    def __init__(self):
-        self.timer = QTimer()
-        self.timer.timeout.connect(show_popup)
-        self.timer.start(20 * 60 * 1000)
-        # show_popup()  # launch initially
+def start_app():
+    while True:
+        show_popup()
+        time.sleep(DELAY_SECS)
 
 
 if __name__ == "__main__":
@@ -91,13 +94,8 @@ if __name__ == "__main__":
 
     logger.info(f"init: {datetime.now()}")
 
-    while True:
-        try:
-            app = QApplication(sys.argv)
+    time.sleep(DELAY_SECS)
 
-            reminder = ReminderApp()
-
-            sys.exit(app.exec())
-        except:
-            logger.error(f"error:")
-            time.sleep(2 * 60 * 1000)
+    app = QApplication(sys.argv)
+    start_app()
+    sys.exit(app.exec())
