@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 DELAY_SECS=20 * 60
 DURATION_SECS=20
-# DELAY_SECS = 2 * 60
+# DELAY_SECS = 2
 # DURATION_SECS = 10
 
 
@@ -29,7 +29,7 @@ class PopupWindow(QDialog):
         self.title.setFont(QFont("Arial", 24, QFont.Weight.Bold))
         self.title.setStyleSheet("color: #e91e63;")
 
-        self.subtitle = QLabel("Focus on something 20 meters away while the timer completes.")
+        self.subtitle = QLabel("Focus on something 20 feet away while the timer completes.")
         self.subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.subtitle.setFont(QFont("Arial", 12))
         self.subtitle.setStyleSheet("color: #f06292;")
@@ -75,6 +75,11 @@ class PopupWindow(QDialog):
             self.timer.stop()
             self.close()
 
+    def closeEvent(self, event):
+        if self.timer.isActive():
+            event.ignore()
+        else:
+            super(PopupWindow, self).closeEvent(event)
 
 def show_popup():
     logger.info(f"trigger: {datetime.now()}")
