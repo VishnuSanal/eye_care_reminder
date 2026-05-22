@@ -81,6 +81,12 @@ class PopupWindow(QDialog):
         else:
             super(PopupWindow, self).closeEvent(event)
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_Escape and self.timer.isActive():
+            event.ignore()
+            return
+        super(PopupWindow, self).keyPressEvent(event)
+
 def show_popup():
     logger.info(f"trigger: {datetime.now()}")
 
