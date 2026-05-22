@@ -17,7 +17,7 @@ jobs:
       - name: Set Up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: 3.14
 
       - name: Create Virtual Environment
         run: |
@@ -45,7 +45,7 @@ jobs:
       - name: Set Up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: 3.14
 
       - name: Create Virtual Environment
         run: |
@@ -73,7 +73,7 @@ jobs:
       - name: Set Up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: 3.14
 
       - name: Create Virtual Environment
         run: |
